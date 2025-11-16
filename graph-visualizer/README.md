@@ -9,7 +9,6 @@ A real-time graph visualization tool for analyzing and exploring claims about fi
 - AI-powered chat interface for querying claims
 - Citation tracking and highlighting
 - Support for multiple data sources (news, social media)
-- Sentiment analysis visualization
 
 ## Tech Stack
 

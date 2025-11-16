@@ -1,5 +1,36 @@
 import { getSentimentColor } from '../utils/styleUtils';
 
+// Calculate red heatmap color based on weight (0.0 to 1.0)
+// Higher weight = darker/more intense red, Lower weight = lighter red
+export const getWeightColor = (weight) => {
+  // Clamp weight between 0 and 1
+  const clampedWeight = Math.max(0, Math.min(1, weight));
+
+  // Interpolate between light red (#ffcccc) and dark red (#cc0000)
+  // Light red: R=255, G=204, B=204
+  // Dark red: R=204, G=0, B=0
+
+  const lightR = 255;
+  const lightG = 204;
+  const lightB = 204;
+
+  const darkR = 204;
+  const darkG = 0;
+  const darkB = 0;
+
+  // Linear interpolation: higher weight -> darker red
+  const r = Math.round(lightR - (clampedWeight * (lightR - darkR)));
+  const g = Math.round(lightG - (clampedWeight * (lightG - darkG)));
+  const b = Math.round(lightB - (clampedWeight * (lightB - darkB)));
+
+  // Convert to hex
+  const rHex = r.toString(16).padStart(2, '0');
+  const gHex = g.toString(16).padStart(2, '0');
+  const bHex = b.toString(16).padStart(2, '0');
+
+  return `#${rHex}${gHex}${bHex}`;
+};
+
 export const getCytoscapeStylesheet = () => [
   // Default node style
   {
@@ -65,6 +96,37 @@ export const getCytoscapeStylesheet = () => [
       'padding': '6px'
     }
   },
+  // Original source nodes (evidence_ids with weights)
+  {
+    selector: 'node[type="original_source"]',
+    style: {
+      'shape': 'round-rectangle',
+      'background-color': (ele) => {
+        const weight = ele.data('weight');
+        return getWeightColor(weight || 0);
+      },
+      'width': 110,
+      'height': 55,
+      'font-size': '10px',
+      'font-weight': 'bold',
+      'text-max-width': '100px',
+      'border-width': 3,
+      'border-color': (ele) => {
+        const weight = ele.data('weight');
+        // Darker red border for high weights, medium red for low weights
+        return weight > 0.5 ? '#990000' : '#cc6666';
+      },
+      'color': (ele) => {
+        const weight = ele.data('weight');
+        // White text for high weights (dark red), dark text for low weights (light red)
+        return weight > 0.4 ? '#ffffff' : '#000000';
+      },
+      'padding': '4px',
+      'z-index': 100,
+      'text-valign': 'center',
+      'text-halign': 'center'
+    }
+  },
   // Collection nodes
   {
     selector: 'node[type="collection"]',
@@ -120,6 +182,20 @@ export const getCytoscapeStylesheet = () => [
       'curve-style': 'bezier',
       'arrow-scale': 1.5,
       'line-style': 'dashed'
+    }
+  },
+  // Original source edges (from original sources to claims)
+  {
+    selector: 'edge[type="source_edge"]',
+    style: {
+      'width': 3,
+      'line-color': '#64748b',
+      'target-arrow-color': '#64748b',
+      'target-arrow-shape': 'triangle',
+      'curve-style': 'bezier',
+      'arrow-scale': 1.5,
+      'line-style': 'solid',
+      'z-index': 99
     }
   },
   // Expanded edges (from collection to individual claim)

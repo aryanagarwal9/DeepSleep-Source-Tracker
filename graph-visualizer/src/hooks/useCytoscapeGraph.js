@@ -1,4 +1,5 @@
 import { useEffect, useRef, useCallback } from 'react';
+import { createOriginalSourceNodes } from '../utils/dataTransformer';
 
 export function useCytoscapeGraph(setSelectedNode, data) {
   const cyRef = useRef(null);
@@ -7,8 +8,10 @@ export function useCytoscapeGraph(setSelectedNode, data) {
     const cy = cyRef.current;
     if (!cy) return;
 
-    // Clear previous highlights
+    // Clear previous highlights and remove any existing original source nodes
     cy.elements().removeClass('highlighted dimmed citation-highlighted');
+    cy.nodes('[type="original_source"]').remove();
+    cy.edges('[type="source_edge"]').remove();
 
     const nodeData = node.data();
     const pathElements = cy.collection();
@@ -33,6 +36,7 @@ export function useCytoscapeGraph(setSelectedNode, data) {
       let hasSocialUpstream = false;
 
       // 3. Highlight upstream claims and their edges to agents
+      // AND create original source nodes for each upstream claim
       upstreamClaimIds.forEach(upstreamId => {
         const upstreamNode = cy.getElementById(upstreamId);
         if (upstreamNode.length > 0) {
@@ -41,6 +45,38 @@ export function useCytoscapeGraph(setSelectedNode, data) {
           // Check which agent this upstream claim belongs to
           const upstreamData = upstreamNode.data();
           const sourceAgent = upstreamData.source_agent;
+
+          // Create original source nodes for this upstream claim
+          if (upstreamData.evidence_ids && upstreamData.evidence_ids.length > 0) {
+            // Find the full claim data to get the weight information
+            const fullClaim = data?.all_upstream_claims?.find(c => c.claim_id === upstreamId);
+
+            if (fullClaim && fullClaim.weight) {
+              const { nodes: sourceNodes, edges: sourceEdges } = createOriginalSourceNodes(fullClaim, sourceAgent);
+
+              // Add original source nodes and edges to the graph
+              sourceNodes.forEach(nodeObj => {
+                cy.add(nodeObj);
+              });
+              sourceEdges.forEach(edgeObj => {
+                cy.add(edgeObj);
+              });
+
+              // Add original source nodes and edges to pathElements for highlighting
+              sourceNodes.forEach(nodeObj => {
+                const addedNode = cy.getElementById(nodeObj.data.id);
+                if (addedNode.length > 0) {
+                  pathElements.merge(addedNode);
+                }
+              });
+              sourceEdges.forEach(edgeObj => {
+                const addedEdge = cy.getElementById(edgeObj.data.id);
+                if (addedEdge.length > 0) {
+                  pathElements.merge(addedEdge);
+                }
+              });
+            }
+          }
 
           // Find edge from agent to this upstream claim based on source_agent
           if (sourceAgent === 'news') {
@@ -77,6 +113,38 @@ export function useCytoscapeGraph(setSelectedNode, data) {
       // If this is an upstream claim, highlight path to all master claims that use it
       const upstreamClaimId = nodeData.id;
       const sourceAgent = nodeData.source_agent;
+
+      // Create original source nodes if evidence_ids exist
+      if (nodeData.evidence_ids && nodeData.evidence_ids.length > 0) {
+        // Find the full claim data to get the weight information
+        const fullClaim = data?.all_upstream_claims?.find(c => c.claim_id === upstreamClaimId);
+
+        if (fullClaim && fullClaim.weight) {
+          const { nodes: sourceNodes, edges: sourceEdges } = createOriginalSourceNodes(fullClaim, sourceAgent);
+
+          // Add original source nodes and edges to the graph
+          sourceNodes.forEach(nodeObj => {
+            cy.add(nodeObj);
+          });
+          sourceEdges.forEach(edgeObj => {
+            cy.add(edgeObj);
+          });
+
+          // Add original source nodes and edges to pathElements for highlighting
+          sourceNodes.forEach(nodeObj => {
+            const addedNode = cy.getElementById(nodeObj.data.id);
+            if (addedNode.length > 0) {
+              pathElements.merge(addedNode);
+            }
+          });
+          sourceEdges.forEach(edgeObj => {
+            const addedEdge = cy.getElementById(edgeObj.data.id);
+            if (addedEdge.length > 0) {
+              pathElements.merge(addedEdge);
+            }
+          });
+        }
+      }
 
       // 1. Highlight the source agent
       const sourceAgentId = sourceAgent === 'news' ? 'news_agent' : 'social_agent';
@@ -168,6 +236,9 @@ export function useCytoscapeGraph(setSelectedNode, data) {
   const clearHighlight = () => {
     if (cyRef.current) {
       cyRef.current.elements().removeClass('highlighted dimmed citation-highlighted');
+      // Remove original source nodes and edges
+      cyRef.current.nodes('[type="original_source"]').remove();
+      cyRef.current.edges('[type="source_edge"]').remove();
     }
   };
 
@@ -275,8 +346,10 @@ export function useCytoscapeGraph(setSelectedNode, data) {
     const cy = cyRef.current;
     if (!cy) return;
 
-    // Clear previous highlights
+    // Clear previous highlights and remove original source nodes
     cy.elements().removeClass('highlighted dimmed citation-highlighted');
+    cy.nodes('[type="original_source"]').remove();
+    cy.edges('[type="source_edge"]').remove();
 
     const pathElements = cy.collection();
 
@@ -288,6 +361,33 @@ export function useCytoscapeGraph(setSelectedNode, data) {
 
       if (claimNode.length > 0) {
         pathElements.merge(claimNode);
+
+        // Create original source nodes if evidence_ids exist
+        if (claim.evidence_ids && claim.evidence_ids.length > 0 && claim.weight) {
+          const { nodes: sourceNodes, edges: sourceEdges } = createOriginalSourceNodes(claim, collectionType);
+
+          // Add original source nodes and edges to the graph
+          sourceNodes.forEach(nodeObj => {
+            cy.add(nodeObj);
+          });
+          sourceEdges.forEach(edgeObj => {
+            cy.add(edgeObj);
+          });
+
+          // Add original source nodes and edges to pathElements for highlighting
+          sourceNodes.forEach(nodeObj => {
+            const addedNode = cy.getElementById(nodeObj.data.id);
+            if (addedNode.length > 0) {
+              pathElements.merge(addedNode);
+            }
+          });
+          sourceEdges.forEach(edgeObj => {
+            const addedEdge = cy.getElementById(edgeObj.data.id);
+            if (addedEdge.length > 0) {
+              pathElements.merge(addedEdge);
+            }
+          });
+        }
 
         // Highlight the source agent
         if (sourceAgentNode.length > 0) {
@@ -343,7 +443,7 @@ export function useCytoscapeGraph(setSelectedNode, data) {
       if (masterClaimNode.length > 0) pathElements.merge(masterClaimNode);
       if (edgeToMaster.length > 0) pathElements.merge(edgeToMaster);
 
-      // Highlight upstream claims
+      // Highlight upstream claims and create their original source nodes
       const upstreamClaimIds = claim.upstream_claim_ids || [];
       let hasNewsUpstream = false;
       let hasSocialUpstream = false;
@@ -359,12 +459,41 @@ export function useCytoscapeGraph(setSelectedNode, data) {
           if (edgeFromAgent.length > 0) pathElements.merge(edgeFromAgent);
         }
 
-        // Determine if this is a news or social claim
+        // Determine if this is a news or social claim and create original source nodes
         const claimData = data?.all_upstream_claims?.find(c => c.claim_id === upstreamId);
         if (claimData) {
-          if (claimData.source_agent === 'news') {
+          const sourceAgent = claimData.source_agent;
+
+          // Create original source nodes for this upstream claim
+          if (claimData.evidence_ids && claimData.evidence_ids.length > 0 && claimData.weight) {
+            const { nodes: sourceNodes, edges: sourceEdges } = createOriginalSourceNodes(claimData, sourceAgent);
+
+            // Add original source nodes and edges to the graph
+            sourceNodes.forEach(nodeObj => {
+              cy.add(nodeObj);
+            });
+            sourceEdges.forEach(edgeObj => {
+              cy.add(edgeObj);
+            });
+
+            // Add original source nodes and edges to pathElements for highlighting
+            sourceNodes.forEach(nodeObj => {
+              const addedNode = cy.getElementById(nodeObj.data.id);
+              if (addedNode.length > 0) {
+                pathElements.merge(addedNode);
+              }
+            });
+            sourceEdges.forEach(edgeObj => {
+              const addedEdge = cy.getElementById(edgeObj.data.id);
+              if (addedEdge.length > 0) {
+                pathElements.merge(addedEdge);
+              }
+            });
+          }
+
+          if (sourceAgent === 'news') {
             hasNewsUpstream = true;
-          } else if (claimData.source_agent === 'social') {
+          } else if (sourceAgent === 'social') {
             hasSocialUpstream = true;
           }
         }
@@ -412,8 +541,10 @@ export function useCytoscapeGraph(setSelectedNode, data) {
     const cy = cyRef.current;
     if (!cy || !claimId) return;
 
-    // Clear previous highlights
+    // Clear previous highlights and remove original source nodes
     cy.elements().removeClass('highlighted dimmed citation-highlighted');
+    cy.nodes('[type="original_source"]').remove();
+    cy.edges('[type="source_edge"]').remove();
 
     const pathElements = cy.collection();
     const node = cy.getElementById(claimId);
@@ -525,8 +656,10 @@ export function useCytoscapeGraph(setSelectedNode, data) {
     const cy = cyRef.current;
     if (!cy || !claimIds || claimIds.length === 0) return;
 
-    // Clear previous highlights
+    // Clear previous highlights and remove original source nodes
     cy.elements().removeClass('highlighted dimmed citation-highlighted');
+    cy.nodes('[type="original_source"]').remove();
+    cy.edges('[type="source_edge"]').remove();
 
     const pathElements = cy.collection();
 

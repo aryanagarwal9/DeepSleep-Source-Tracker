@@ -208,3 +208,65 @@ export function transformToElements(data, selectedAsset = null, selectedMasterCl
 
   return [...nodes, ...edges];
 }
+
+/**
+ * Create original source nodes (evidence_ids) for a selected claim
+ * @param {Object} claim - The claim object with evidence_ids and weight
+ * @param {string} sourceAgent - 'news' or 'social'
+ * @returns {Object} Object containing nodes and edges arrays
+ */
+export function createOriginalSourceNodes(claim, sourceAgent) {
+  const nodes = [];
+  const edges = [];
+
+  if (!claim || !claim.evidence_ids || !claim.weight) {
+    return { nodes, edges };
+  }
+
+  const evidenceIds = claim.evidence_ids;
+  const weights = claim.weight;
+
+  // Determine position based on source agent
+  // News Agent is at (-800, 0), Social Agent is at (800, 0)
+  // Agent height is 240, so top of agent is at y: -120
+  const baseX = sourceAgent === 'news' ? -800 : 800;
+  const baseY = -180; // Position above the agent (agent top at -120, adding margin)
+
+  // Calculate horizontal spacing
+  const horizontalSpacing = 130;
+  const totalWidth = (evidenceIds.length - 1) * horizontalSpacing;
+  const startX = baseX - (totalWidth / 2);
+
+  // Create a node for each evidence_id
+  evidenceIds.forEach((evidenceId, index) => {
+    const weight = weights[evidenceId] || 0;
+
+    nodes.push({
+      data: {
+        id: `source_${evidenceId}_${claim.claim_id || claim.final_claim_id}`,
+        label: `${evidenceId}: ${weight.toFixed(2)}`,
+        evidence_id: evidenceId,
+        weight: weight,
+        type: 'original_source',
+        source_agent: sourceAgent,
+        parent_claim_id: claim.claim_id || claim.final_claim_id
+      },
+      position: {
+        x: startX + (index * horizontalSpacing),
+        y: baseY
+      }
+    });
+
+    // Create edge from original source to the claim
+    edges.push({
+      data: {
+        id: `source_edge_${evidenceId}_to_${claim.claim_id || claim.final_claim_id}`,
+        source: `source_${evidenceId}_${claim.claim_id || claim.final_claim_id}`,
+        target: claim.claim_id || claim.final_claim_id,
+        type: 'source_edge'
+      }
+    });
+  });
+
+  return { nodes, edges };
+}

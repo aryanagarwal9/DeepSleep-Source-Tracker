@@ -10,12 +10,9 @@
   <component name="ChangeListManager">
     <list default="true" id="106f586f-9f34-4e10-9d1d-107aaf10ed01" name="Changes" comment="Draft 1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graph-visualizer/backend/llm_agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/graph-visualizer/backend/llm_agent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graph-visualizer/backend/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/graph-visualizer/backend/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graph-visualizer/src/components/ChatPanel.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/graph-visualizer/src/components/ChatPanel.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graph-visualizer/src/components/GraphVisualizer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/graph-visualizer/src/components/GraphVisualizer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graph-visualizer/src/components/NodeDetailsPanel.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/graph-visualizer/src/components/NodeDetailsPanel.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graph-visualizer/backend/data/sample_data.json" beforeDir="false" afterPath="$PROJECT_DIR$/graph-visualizer/backend/data/sample_data.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/graph-visualizer/src/constants/cytoscapeStyles.js" beforeDir="false" afterPath="$PROJECT_DIR$/graph-visualizer/src/constants/cytoscapeStyles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graph-visualizer/src/constants/sampleData.js" beforeDir="false" afterPath="$PROJECT_DIR$/graph-visualizer/src/constants/sampleData.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/graph-visualizer/src/hooks/useCytoscapeGraph.js" beforeDir="false" afterPath="$PROJECT_DIR$/graph-visualizer/src/hooks/useCytoscapeGraph.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/graph-visualizer/src/utils/dataTransformer.js" beforeDir="false" afterPath="$PROJECT_DIR$/graph-visualizer/src/utils/dataTransformer.js" afterDir="false" />
     </list>
@@ -45,21 +42,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "run.code.analysis.last.selected.profile": "aDefault",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/graph-visualizer" />

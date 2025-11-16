@@ -356,10 +356,129 @@ export function useCytoscapeGraph(setSelectedNode, data) {
     });
   };
 
+  const highlightClaimsByIds = (claimIds) => {
+    const cy = cyRef.current;
+    if (!cy || !claimIds || claimIds.length === 0) return;
+
+    // Clear previous highlights
+    cy.elements().removeClass('highlighted dimmed');
+
+    const pathElements = cy.collection();
+
+    // Find all nodes matching the claim IDs
+    claimIds.forEach(claimId => {
+      const node = cy.getElementById(claimId);
+      if (node.length > 0) {
+        pathElements.merge(node);
+
+        const nodeData = node.data();
+
+        // If it's a master claim, highlight its upstream path
+        if (nodeData.type === 'master_claim') {
+          const masterAgentNode = cy.getElementById('master_claims_agent');
+          const edgeToMaster = cy.getElementById(`edge_${claimId}_to_agent`);
+
+          if (masterAgentNode.length > 0) pathElements.merge(masterAgentNode);
+          if (edgeToMaster.length > 0) pathElements.merge(edgeToMaster);
+
+          // Highlight upstream claims and their agents
+          const upstreamClaimIds = nodeData.upstream_claim_ids || [];
+          let hasNewsUpstream = false;
+          let hasSocialUpstream = false;
+
+          upstreamClaimIds.forEach(upstreamId => {
+            const upstreamNode = cy.getElementById(upstreamId);
+            if (upstreamNode.length > 0) {
+              pathElements.merge(upstreamNode);
+              const upstreamData = upstreamNode.data();
+              const sourceAgent = upstreamData.source_agent;
+
+              const edgeFromAgent = cy.getElementById(`edge_${upstreamId}_to_agent`);
+              if (edgeFromAgent.length > 0) pathElements.merge(edgeFromAgent);
+
+              if (sourceAgent === 'news') hasNewsUpstream = true;
+              else if (sourceAgent === 'social') hasSocialUpstream = true;
+            }
+          });
+
+          // Highlight agent boxes and connections if they have upstream claims
+          if (hasNewsUpstream) {
+            const newsAgentNode = cy.getElementById('news_agent');
+            const newsToMasterEdge = cy.getElementById('news_to_master');
+            if (newsAgentNode.length > 0) pathElements.merge(newsAgentNode);
+            if (newsToMasterEdge.length > 0) pathElements.merge(newsToMasterEdge);
+          }
+
+          if (hasSocialUpstream) {
+            const socialAgentNode = cy.getElementById('social_agent');
+            const socialToMasterEdge = cy.getElementById('social_to_master');
+            if (socialAgentNode.length > 0) pathElements.merge(socialAgentNode);
+            if (socialToMasterEdge.length > 0) pathElements.merge(socialToMasterEdge);
+          }
+        }
+        // If it's an upstream claim, highlight path to master claims
+        else if (nodeData.type === 'upstream_claim') {
+          const sourceAgent = nodeData.source_agent;
+          const sourceAgentId = sourceAgent === 'news' ? 'news_agent' : 'social_agent';
+          const sourceAgentNode = cy.getElementById(sourceAgentId);
+
+          if (sourceAgentNode.length > 0) pathElements.merge(sourceAgentNode);
+
+          const edgeToUpstream = cy.getElementById(`edge_${claimId}_to_agent`);
+          if (edgeToUpstream.length > 0) pathElements.merge(edgeToUpstream);
+
+          // Find master claims that reference this upstream claim
+          const allNodes = cy.nodes();
+          let foundMasterClaims = false;
+
+          allNodes.forEach(n => {
+            const nData = n.data();
+            if (nData.type === 'master_claim' && nData.upstream_claim_ids) {
+              if (nData.upstream_claim_ids.includes(claimId)) {
+                pathElements.merge(n);
+                foundMasterClaims = true;
+
+                const edgeToMaster = cy.getElementById(`edge_${nData.id}_to_agent`);
+                if (edgeToMaster.length > 0) pathElements.merge(edgeToMaster);
+              }
+            }
+          });
+
+          if (foundMasterClaims) {
+            const masterAgentNode = cy.getElementById('master_claims_agent');
+            if (masterAgentNode.length > 0) pathElements.merge(masterAgentNode);
+
+            const agentToMasterEdge = cy.getElementById(sourceAgent + '_to_master');
+            if (agentToMasterEdge.length > 0) pathElements.merge(agentToMasterEdge);
+          }
+        }
+      }
+    });
+
+    // Highlight path and dim others
+    pathElements.addClass('highlighted');
+    cy.elements().not(pathElements).addClass('dimmed');
+
+    // Animate pulse effect
+    pathElements.animate({
+      style: { 'border-width': 6 }
+    }, {
+      duration: 300,
+      complete: () => {
+        pathElements.animate({
+          style: { 'border-width': 4 }
+        }, {
+          duration: 300
+        });
+      }
+    });
+  };
+
   return {
     cyRef,
     highlightPath,
     highlightClaimPath,
+    highlightClaimsByIds,
     clearHighlight,
     handleSearch,
     applyFilters,

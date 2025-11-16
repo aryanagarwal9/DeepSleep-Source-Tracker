@@ -8,6 +8,7 @@ import AssetSelector from './AssetSelector';
 import FiltersPanel from './FiltersPanel';
 import GraphLegend from './GraphLegend';
 import NodeDetailsPanel from './NodeDetailsPanel';
+import ChatPanel from './ChatPanel';
 
 import { transformToElements } from '../utils/dataTransformer';
 import { getCytoscapeStylesheet } from '../constants/cytoscapeStyles';
@@ -20,7 +21,6 @@ Cytoscape.use(coseBilkent);
 
 export default function GraphVisualizer() {
   const [elements, setElements] = useState([]);
-  const [layout, setLayout] = useState('custom');
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState({
     asset: '',
@@ -39,7 +39,8 @@ export default function GraphVisualizer() {
     applyFilters,
     exportGraph,
     resetView,
-    highlightClaimPath
+    highlightClaimPath,
+    highlightClaimsByIds
   } = useCytoscapeGraph(setSelectedNode, SAMPLE_DATA);
 
   const handleClaimClick = (claim, collectionType) => {
@@ -77,8 +78,6 @@ export default function GraphVisualizer() {
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
         handleSearch={() => handleSearch(searchTerm)}
-        layout={layout}
-        setLayout={setLayout}
         showFilters={showFilters}
         setShowFilters={setShowFilters}
         exportGraph={exportGraph}
@@ -91,13 +90,14 @@ export default function GraphVisualizer() {
 
       <div className="flex-1 flex flex-col overflow-hidden">
         <div className="flex-1 flex overflow-hidden">
+          <ChatPanel onHighlightClaims={highlightClaimsByIds} />
           <div className="flex-1 relative">
             <CytoscapeComponent
               key={`${selectedAsset}-${selectedMasterClaim?.final_claim_id || 'none'}`}
               elements={elements}
               style={{ width: '100%', height: '100%' }}
               stylesheet={stylesheet}
-              layout={LAYOUT_OPTIONS[layout]}
+              layout={LAYOUT_OPTIONS.custom}
               cy={(cy) => { cyRef.current = cy; }}
               wheelSensitivity={0.2}
             />

@@ -5,8 +5,6 @@ export default function Header({
   searchTerm,
   setSearchTerm,
   handleSearch,
-  layout,
-  setLayout,
   showFilters,
   setShowFilters,
   exportGraph,
@@ -29,17 +27,6 @@ export default function Header({
             className="bg-transparent outline-none w-48"
           />
         </div>
-
-        {/* Layout selector */}
-        <select
-          value={layout}
-          onChange={(e) => setLayout(e.target.value)}
-          className="bg-gray-700 px-3 py-2 rounded-lg outline-none"
-        >
-          <option value="cose-bilkent">Force Directed</option>
-          <option value="circle">Circular</option>
-          <option value="grid">Grid</option>
-        </select>
 
         {/* Filter button */}
         <button

@@ -1,0 +1,1045 @@
+{
+    "all_upstream_claims": [
+        {
+            "claim_id": "news_NVDA_1",
+            "asset": "NVDA",
+            "source_agent": "news",
+            "text": "NVIDIA is among the elite companies approaching trillion-dollar market capitalization status by 2030.",
+            "evidence_ids": [
+                "44"
+            ]
+        },
+        {
+            "claim_id": "news_TSLA_1",
+            "asset": "TSLA",
+            "source_agent": "news",
+            "text": "Tesla appears to be planning to reduce its presence in China, which could impact its market position.",
+            "evidence_ids": [
+                "53"
+            ]
+        },
+        {
+            "claim_id": "news_TSLA_2",
+            "asset": "TSLA",
+            "text": "The declining prices of used EVs may negatively impact Tesla's resale values and overall market.",
+            "source_agent": "news",
+            "evidence_ids": [
+                "92",
+                "93"
+            ]
+        },
+        {
+            "claim_id": "news_GOLD_1",
+            "asset": "GOLD",
+            "source_agent": "news",
+            "text": "New gold discoveries along with silver, copper and lead at the Antonella Project could impact gold market supply.",
+            "evidence_ids": [
+                "80"
+            ]
+        },
+        {
+            "claim_id": "news_TSLA_3",
+            "asset": "TSLA",
+            "source_agent": "news",
+            "text": "Tesla is implementing supply chain changes by requiring suppliers to avoid Chinese-made parts for US vehicles, indicating potential geopolitical risk management.",
+            "evidence_ids": [
+                "189"
+            ]
+        },
+        {
+            "claim_id": "news_NVDA_2",
+            "asset": "NVDA",
+            "source_agent": "news",
+            "text": "AI spending boom continues as major tech companies defend investments in artificial intelligence infrastructure",
+            "evidence_ids": [
+                "247",
+                "242"
+            ]
+        },
+        {
+            "claim_id": "news_NVDA_3",
+            "asset": "NVDA",
+            "source_agent": "news",
+            "text": "Some fund managers are expressing caution about top tech stocks, potentially including NVIDIA",
+            "evidence_ids": [
+                "245"
+            ]
+        },
+        {
+            "claim_id": "news_NVDA_4",
+            "asset": "NVDA",
+            "source_agent": "news",
+            "text": "Growing demand for AI and data centers could boost NVIDIA's core business",
+            "evidence_ids": [
+                "242",
+                "244",
+                "246"
+            ]
+        },
+        {
+            "claim_id": "news_TSLA_4",
+            "asset": "TSLA",
+            "source_agent": "news",
+            "text": "Competition in electric vehicles intensifies as Chinese manufacturers expand globally",
+            "evidence_ids": [
+                "234",
+                "226"
+            ]
+        },
+        {
+            "claim_id": "news_TSLA_5",
+            "asset": "TSLA",
+            "source_agent": "news",
+            "text": "Developments in autonomous driving technology from companies like Huawei could pose competitive challenges to Tesla",
+            "evidence_ids": [
+                "219"
+            ]
+        },
+        {
+            "claim_id": "news_GOLD_2",
+            "asset": "GOLD",
+            "source_agent": "news",
+            "text": "Cryptocurrency market weakness, with Bitcoin hitting six-month low, could drive investors toward traditional safe havens like gold",
+            "evidence_ids": [
+                "217"
+            ]
+        },
+        {
+            "claim_id": "news_TSLA_6",
+            "asset": "TSLA",
+            "source_agent": "news",
+            "text": "Tesla's Optimus robot development aims to deliver superhuman precision in healthcare applications.",
+            "evidence_ids": [
+                "267",
+                "293"
+            ]
+        },
+        {
+            "claim_id": "news_GOLD_3",
+            "asset": "GOLD",
+            "source_agent": "news",
+            "text": "Gold prices in Pakistan show market activity, suggesting regional precious metals movement.",
+            "evidence_ids": [
+                "253"
+            ]
+        },
+        {
+            "claim_id": "news_TSLA_7",
+            "asset": "TSLA",
+            "source_agent": "news",
+            "text": "Tesla is working to remove Chinese-made components from its US production vehicles.",
+            "evidence_ids": [
+                "301"
+            ]
+        },
+        {
+            "claim_id": "news_GOLD_4",
+            "asset": "GOLD",
+            "source_agent": "news",
+            "text": "Gold investment demand may be impacting retail inflation metrics.",
+            "evidence_ids": [
+                "343"
+            ]
+        },
+        {
+            "claim_id": "news_GOLD_5",
+            "asset": "GOLD",
+            "source_agent": "news",
+            "text": "Gold prices are experiencing significant volatility with sharp drops due to hawkish Fed signals and reduced safe-haven demand.",
+            "evidence_ids": [
+                "351",
+                "354",
+                "360",
+                "387"
+            ]
+        },
+        {
+            "claim_id": "news_TSLA_8",
+            "asset": "TSLA",
+            "source_agent": "news",
+            "text": "Tesla faces negative outlook from Wells Fargo due to declining delivery numbers.",
+            "evidence_ids": [
+                "398"
+            ]
+        },
+        {
+            "claim_id": "news_TSLA_9",
+            "asset": "TSLA",
+            "source_agent": "news",
+            "text": "Tesla may integrate Apple CarPlay into its vehicles, reversing its previous stance",
+            "evidence_ids": [
+                "444"
+            ]
+        },
+        {
+            "claim_id": "news_TSLA_10",
+            "asset": "TSLA",
+            "source_agent": "news",
+            "text": "Elon Musk maintains a modest real estate portfolio with only two residences",
+            "evidence_ids": [
+                "442"
+            ]
+        },
+        {
+            "claim_id": "news_NVDA_5",
+            "asset": "NVDA",
+            "source_agent": "news",
+            "text": "Market attention is focused on Nvidia following a volatile trading week.",
+            "evidence_ids": [
+                "493"
+            ]
+        },
+        {
+            "claim_id": "news_NVDA_6",
+            "asset": "NVDA",
+            "source_agent": "news",
+            "text": "Nvidia executive expresses concerns about losing access to Chinese engineering talent.",
+            "evidence_ids": [
+                "495"
+            ]
+        },
+        {
+            "claim_id": "news_NVDA_7",
+            "asset": "NVDA",
+            "source_agent": "news",
+            "text": "Ray Dalio's Bridgewater has reduced its positions in NVIDIA and other tech stocks during Q3, indicating decreased confidence.",
+            "evidence_ids": [
+                "584"
+            ]
+        },
+        {
+            "claim_id": "news_NVDA_8",
+            "asset": "NVDA",
+            "source_agent": "news",
+            "text": "Market anticipates significant developments from NVIDIA's upcoming earnings report.",
+            "evidence_ids": [
+                "590",
+                "600"
+            ]
+        },
+        {
+            "claim_id": "news_GOLD_6",
+            "asset": "GOLD",
+            "source_agent": "news",
+            "text": "Gold prices decline as expectations for Federal Reserve rate cuts diminish.",
+            "evidence_ids": [
+                "559",
+                "562"
+            ]
+        },
+        {
+            "claim_id": "news_NVDA_9",
+            "asset": "NVDA",
+            "source_agent": "news",
+            "text": "NVIDIA helped lead a market recovery after initial losses",
+            "evidence_ids": [
+                "645"
+            ]
+        },
+        {
+            "claim_id": "news_TSLA_11",
+            "asset": "TSLA",
+            "source_agent": "news",
+            "text": "Tesla released more transparent Full Self-Driving crash data",
+            "evidence_ids": [
+                "635"
+            ]
+        },
+        {
+            "claim_id": "news_NVDA_10",
+            "asset": "NVDA",
+            "source_agent": "news",
+            "text": "AI-related market sentiment shows signs of concern over potential bubble formation.",
+            "evidence_ids": [
+                "660",
+                "693"
+            ]
+        },
+        {
+            "claim_id": "news_TSLA_12",
+            "asset": "TSLA",
+            "source_agent": "news",
+            "text": "Competition in the EV market continues as Ford confirms Mach-E pricing and sales strategy.",
+            "evidence_ids": [
+                "685"
+            ]
+        },
+        {
+            "claim_id": "news_NVDA_11",
+            "asset": "NVDA",
+            "source_agent": "news",
+            "text": "NVIDIA's outlook is in focus as a key catalyst for market watchers.",
+            "evidence_ids": [
+                "717"
+            ]
+        },
+        {
+            "claim_id": "news_GOLD_7",
+            "asset": "GOLD",
+            "source_agent": "news",
+            "text": "Gold prices declined below $4,100 as Federal Reserve officials' hawkish comments reduced expectations for December rate cuts.",
+            "evidence_ids": [
+                "741",
+                "731",
+                "735"
+            ]
+        },
+        {
+            "claim_id": "news_NVDA_12",
+            "asset": "NVDA",
+            "source_agent": "news",
+            "text": "AI-related concerns are impacting technology stocks and market sentiment.",
+            "evidence_ids": [
+                "778",
+                "789",
+                "792"
+            ]
+        },
+        {
+            "claim_id": "news_NVDA_13",
+            "asset": "NVDA",
+            "source_agent": "news",
+            "text": "NVIDIA's long-term growth prospects are being analyzed by market observers.",
+            "evidence_ids": [
+                "803"
+            ]
+        },
+        {
+            "claim_id": "news_NVDA_14",
+            "asset": "NVDA",
+            "source_agent": "news",
+            "text": "AI-related technology stocks may be experiencing bubble-like conditions.",
+            "evidence_ids": [
+                "806",
+                "818"
+            ]
+        },
+        {
+            "claim_id": "news_TSLA_13",
+            "asset": "TSLA",
+            "source_agent": "news",
+            "text": "Tesla is facing production challenges related to robotics implementation.",
+            "evidence_ids": [
+                "833"
+            ]
+        },
+        {
+            "claim_id": "news_TSLA_14",
+            "asset": "TSLA",
+            "source_agent": "news",
+            "text": "Tesla is operating in a competitive environment with advancing automotive technology.",
+            "evidence_ids": [
+                "834"
+            ]
+        },
+        {
+            "claim_id": "news_NVDA_15",
+            "asset": "NVDA",
+            "source_agent": "news",
+            "text": "Nvidia stock shows volatility alongside bitcoin movements",
+            "evidence_ids": [
+                "855"
+            ]
+        },
+        {
+            "claim_id": "news_NVDA_16",
+            "asset": "NVDA",
+            "source_agent": "news",
+            "text": "Tech sector weakness affects market sentiment towards Nvidia",
+            "evidence_ids": [
+                "857"
+            ]
+        },
+        {
+            "claim_id": "news_GOLD_8",
+            "asset": "GOLD",
+            "source_agent": "news",
+            "text": "GoldBod's operations contribute positively to foreign exchange conservation",
+            "evidence_ids": [
+                "870"
+            ]
+        },
+        {
+            "claim_id": "news_TSLA_15",
+            "asset": "TSLA",
+            "source_agent": "news",
+            "text": "A former Tesla AI leader suggests autonomous vehicles will significantly transform urban landscapes.",
+            "evidence_ids": [
+                "928"
+            ]
+        },
+        {
+            "claim_id": "news_NVDA_17",
+            "asset": "NVDA",
+            "source_agent": "news",
+            "text": "AI-related tech stocks are experiencing selling pressure amid market concerns",
+            "evidence_ids": [
+                "962",
+                "973",
+                "989"
+            ]
+        },
+        {
+            "claim_id": "news_NVDA_18",
+            "asset": "NVDA",
+            "source_agent": "news",
+            "text": "There are growing concerns about a potential AI bubble in tech stocks",
+            "evidence_ids": [
+                "963",
+                "960"
+            ]
+        },
+        {
+            "claim_id": "news_TSLA_16",
+            "asset": "TSLA",
+            "source_agent": "news",
+            "text": "The EV market is facing significant competitive pressures",
+            "evidence_ids": [
+                "975"
+            ]
+        },
+        {
+            "claim_id": "news_GOLD_9",
+            "asset": "GOLD",
+            "source_agent": "news",
+            "text": "Mining sector activity shows developments that could impact gold markets",
+            "evidence_ids": [
+                "988",
+                "1000"
+            ]
+        },
+        {
+            "claim_id": "social_NVDA_1",
+            "asset": "NVDA",
+            "source_agent": "social",
+            "text": "Investors are concerned about potential NVDA selloff due to weak macro conditions.",
+            "evidence_ids": [
+                "social_1",
+                "social_4",
+                "social_7",
+                "social_10",
+                "social_13",
+                "social_16",
+                "social_19",
+                "social_22",
+                "social_25",
+                "social_28",
+                "social_31",
+                "social_34",
+                "social_37",
+                "social_40",
+                "social_43",
+                "social_46",
+                "social_49"
+            ]
+        },
+        {
+            "claim_id": "social_NVDA_2",
+            "asset": "NVDA",
+            "source_agent": "social",
+            "text": "There is mixed sentiment about NVDA's valuation with debate between those seeing it as overvalued versus fairly priced.",
+            "evidence_ids": [
+                "social_2",
+                "social_5",
+                "social_8",
+                "social_11",
+                "social_14",
+                "social_17",
+                "social_20",
+                "social_23",
+                "social_26",
+                "social_29",
+                "social_32",
+                "social_35",
+                "social_38",
+                "social_41",
+                "social_44",
+                "social_47",
+                "social_50"
+            ]
+        },
+        {
+            "claim_id": "social_NVDA_3",
+            "asset": "NVDA",
+            "source_agent": "social",
+            "text": "Social sentiment is strongly positive about NVDA's AI potential and innovation outlook.",
+            "evidence_ids": [
+                "social_3",
+                "social_6",
+                "social_9",
+                "social_12",
+                "social_15",
+                "social_18",
+                "social_21",
+                "social_24",
+                "social_27",
+                "social_30",
+                "social_33",
+                "social_36",
+                "social_39",
+                "social_42",
+                "social_45",
+                "social_48"
+            ]
+        },
+        {
+            "claim_id": "social_NVDA_4",
+            "asset": "NVDA",
+            "source_agent": "social",
+            "text": "Retail investors are bullish on NVDA due to AI potential and long-term innovation prospects.",
+            "evidence_ids": [
+                "social_51",
+                "social_54",
+                "social_57",
+                "social_60",
+                "social_63",
+                "social_66",
+                "social_69",
+                "social_72",
+                "social_75",
+                "social_78",
+                "social_81",
+                "social_84",
+                "social_87",
+                "social_90",
+                "social_93",
+                "social_96",
+                "social_99"
+            ]
+        },
+        {
+            "claim_id": "social_NVDA_5",
+            "asset": "NVDA",
+            "source_agent": "social",
+            "text": "There are concerns about potential NVDA selloff due to weak macroeconomic conditions.",
+            "evidence_ids": [
+                "social_52",
+                "social_55",
+                "social_58",
+                "social_61",
+                "social_64",
+                "social_67",
+                "social_70",
+                "social_73",
+                "social_76",
+                "social_79",
+                "social_82",
+                "social_85",
+                "social_88",
+                "social_91",
+                "social_94",
+                "social_97",
+                "social_100"
+            ]
+        },
+        {
+            "claim_id": "social_NVDA_6",
+            "asset": "NVDA",
+            "source_agent": "social",
+            "text": "There is mixed sentiment about NVDA's valuation with debate between those viewing it as overvalued versus fairly priced.",
+            "evidence_ids": [
+                "social_53",
+                "social_56",
+                "social_59",
+                "social_62",
+                "social_65",
+                "social_68",
+                "social_71",
+                "social_74",
+                "social_77",
+                "social_80",
+                "social_83",
+                "social_86",
+                "social_89",
+                "social_92",
+                "social_95",
+                "social_98"
+            ]
+        },
+        {
+            "claim_id": "social_TSLA_1",
+            "asset": "TSLA",
+            "source_agent": "social",
+            "text": "Traders are concerned about potential TSLA selloff due to weak macro conditions.",
+            "evidence_ids": [
+                "social_101",
+                "social_104",
+                "social_107",
+                "social_110",
+                "social_113",
+                "social_116",
+                "social_119",
+                "social_122",
+                "social_125",
+                "social_128",
+                "social_131",
+                "social_134",
+                "social_137",
+                "social_140",
+                "social_143",
+                "social_146",
+                "social_149"
+            ]
+        },
+        {
+            "claim_id": "social_TSLA_2",
+            "asset": "TSLA",
+            "source_agent": "social",
+            "text": "There is mixed sentiment about TSLA's valuation with debate between bears and bulls.",
+            "evidence_ids": [
+                "social_102",
+                "social_105",
+                "social_108",
+                "social_111",
+                "social_114",
+                "social_117",
+                "social_120",
+                "social_123",
+                "social_126",
+                "social_129",
+                "social_132",
+                "social_135",
+                "social_138",
+                "social_141",
+                "social_144",
+                "social_147",
+                "social_150"
+            ]
+        },
+        {
+            "claim_id": "social_TSLA_3",
+            "asset": "TSLA",
+            "source_agent": "social",
+            "text": "Investors are bullish on TSLA's long-term prospects due to AI and innovation potential.",
+            "evidence_ids": [
+                "social_103",
+                "social_106",
+                "social_109",
+                "social_112",
+                "social_115",
+                "social_118",
+                "social_121",
+                "social_124",
+                "social_127",
+                "social_130",
+                "social_133",
+                "social_136",
+                "social_139",
+                "social_142",
+                "social_145",
+                "social_148"
+            ]
+        },
+        {
+            "claim_id": "social_TSLA_4",
+            "asset": "TSLA",
+            "source_agent": "social",
+            "text": "Investors are optimistic about TSLA due to AI potential and long-term innovation prospects.",
+            "evidence_ids": [
+                "social_151",
+                "social_154",
+                "social_157",
+                "social_160",
+                "social_163",
+                "social_166",
+                "social_169",
+                "social_172",
+                "social_175",
+                "social_178",
+                "social_181",
+                "social_184",
+                "social_187",
+                "social_190",
+                "social_193",
+                "social_196",
+                "social_199"
+            ]
+        },
+        {
+            "claim_id": "social_TSLA_5",
+            "asset": "TSLA",
+            "source_agent": "social",
+            "text": "There are concerns about potential TSLA sell-off due to weak macro conditions.",
+            "evidence_ids": [
+                "social_152",
+                "social_155",
+                "social_158",
+                "social_161",
+                "social_164",
+                "social_167",
+                "social_170",
+                "social_173",
+                "social_176",
+                "social_179",
+                "social_182",
+                "social_185",
+                "social_188",
+                "social_191",
+                "social_194",
+                "social_197",
+                "social_200"
+            ]
+        },
+        {
+            "claim_id": "social_TSLA_6",
+            "asset": "TSLA",
+            "source_agent": "social",
+            "text": "There is mixed sentiment about TSLA's valuation with debate between overvalued and fair pricing views.",
+            "evidence_ids": [
+                "social_153",
+                "social_156",
+                "social_159",
+                "social_162",
+                "social_165",
+                "social_168",
+                "social_171",
+                "social_174",
+                "social_177",
+                "social_180",
+                "social_183",
+                "social_186",
+                "social_189",
+                "social_192",
+                "social_195",
+                "social_198"
+            ]
+        },
+        {
+            "claim_id": "social_GOLD_1",
+            "asset": "GOLD",
+            "source_agent": "social",
+            "text": "Traders are concerned about potential GOLD selloff due to weak macro data.",
+            "evidence_ids": [
+                "social_201",
+                "social_204",
+                "social_207",
+                "social_210",
+                "social_213",
+                "social_216",
+                "social_219",
+                "social_222",
+                "social_225",
+                "social_228",
+                "social_231",
+                "social_234",
+                "social_237",
+                "social_240",
+                "social_243",
+                "social_246",
+                "social_249"
+            ]
+        },
+        {
+            "claim_id": "social_GOLD_2",
+            "asset": "GOLD",
+            "source_agent": "social",
+            "text": "There is mixed sentiment about GOLD's valuation with some viewing it as overvalued while others see it as fairly priced.",
+            "evidence_ids": [
+                "social_202",
+                "social_205",
+                "social_208",
+                "social_211",
+                "social_214",
+                "social_217",
+                "social_220",
+                "social_223",
+                "social_226",
+                "social_229",
+                "social_232",
+                "social_235",
+                "social_238",
+                "social_241",
+                "social_244",
+                "social_247",
+                "social_250"
+            ]
+        },
+        {
+            "claim_id": "social_GOLD_3",
+            "asset": "GOLD",
+            "source_agent": "social",
+            "text": "Many social media users consider GOLD to be the safest hedging option in current market conditions.",
+            "evidence_ids": [
+                "social_203",
+                "social_206",
+                "social_209",
+                "social_212",
+                "social_215",
+                "social_218",
+                "social_221",
+                "social_224",
+                "social_227",
+                "social_230",
+                "social_233",
+                "social_236",
+                "social_239",
+                "social_242",
+                "social_245",
+                "social_248"
+            ]
+        },
+        {
+            "claim_id": "social_GOLD_4",
+            "asset": "GOLD",
+            "source_agent": "social",
+            "text": "Social media users widely consider GOLD to be the safest hedge in the current market.",
+            "evidence_ids": [
+                "social_251",
+                "social_254",
+                "social_257",
+                "social_260",
+                "social_263",
+                "social_266",
+                "social_269",
+                "social_272",
+                "social_275",
+                "social_278",
+                "social_281",
+                "social_284",
+                "social_287",
+                "social_290",
+                "social_293",
+                "social_296",
+                "social_299"
+            ]
+        },
+        {
+            "claim_id": "social_GOLD_5",
+            "asset": "GOLD",
+            "source_agent": "social",
+            "text": "There are concerns about potential GOLD sell-offs due to weak macro data.",
+            "evidence_ids": [
+                "social_252",
+                "social_255",
+                "social_258",
+                "social_261",
+                "social_264",
+                "social_267",
+                "social_270",
+                "social_273",
+                "social_276",
+                "social_279",
+                "social_282",
+                "social_285",
+                "social_288",
+                "social_291",
+                "social_294",
+                "social_297",
+                "social_300"
+            ]
+        },
+        {
+            "claim_id": "social_GOLD_6",
+            "asset": "GOLD",
+            "source_agent": "social",
+            "text": "There is mixed sentiment about GOLD's valuation with some seeing it as overvalued while others consider it fairly priced.",
+            "evidence_ids": [
+                "social_253",
+                "social_256",
+                "social_259",
+                "social_262",
+                "social_265",
+                "social_268",
+                "social_271",
+                "social_274",
+                "social_277",
+                "social_280",
+                "social_283",
+                "social_286",
+                "social_289",
+                "social_292",
+                "social_295",
+                "social_298"
+            ]
+        }
+    ],
+
+    "master_claims_by_asset": {
+        "NVDA": [
+            {
+                "final_claim_id": "NVDA_combined_1",
+                "asset": "NVDA",
+                "text": "NVIDIA's AI-driven growth potential positions it among elite companies approaching trillion-dollar market capitalization by 2030, supported by continued AI spending and data center demand.",
+                "upstream_claim_ids": [
+                    "news_NVDA_1",
+                    "news_NVDA_2",
+                    "news_NVDA_4"
+                ]
+            },
+            {
+                "final_claim_id": "NVDA_combined_2",
+                "asset": "NVDA",
+                "text": "Market sentiment shows increasing concern about a potential AI bubble in tech stocks, with multiple indicators of bubble-like conditions affecting NVIDIA and the broader AI sector.",
+                "upstream_claim_ids": [
+                    "news_NVDA_10",
+                    "news_NVDA_12",
+                    "news_NVDA_14",
+                    "news_NVDA_17",
+                    "news_NVDA_18"
+                ]
+            },
+            {
+                "final_claim_id": "NVDA_combined_3",
+                "asset": "NVDA",
+                "text": "The stock has experienced significant volatility, influenced by broader tech sector weakness and bitcoin movements, while maintaining its role as a market leader.",
+                "upstream_claim_ids": [
+                    "news_NVDA_5",
+                    "news_NVDA_9",
+                    "news_NVDA_15",
+                    "news_NVDA_16"
+                ]
+            },
+            {
+                "final_claim_id": "NVDA_combined_4",
+                "asset": "NVDA",
+                "text": "Institutional sentiment shows caution, with some fund managers like Bridgewater reducing positions, while retail investors remain bullish on long-term AI prospects.",
+                "upstream_claim_ids": [
+                    "news_NVDA_3",
+                    "news_NVDA_7",
+                    "social_NVDA_3",
+                    "social_NVDA_4"
+                ]
+            },
+            {
+                "final_claim_id": "NVDA_combined_5",
+                "asset": "NVDA",
+                "text": "There is mixed sentiment regarding NVIDIA's valuation, with ongoing debate between those viewing it as overvalued versus fairly priced, complicated by macroeconomic concerns.",
+                "upstream_claim_ids": [
+                    "social_NVDA_1",
+                    "social_NVDA_2",
+                    "social_NVDA_5",
+                    "social_NVDA_6"
+                ]
+            },
+            {
+                "final_claim_id": "NVDA_combined_6",
+                "asset": "NVDA",
+                "text": "Market attention is focused on NVIDIA's upcoming earnings report and long-term outlook, while concerns exist about Chinese engineering talent access.",
+                "upstream_claim_ids": [
+                    "news_NVDA_6",
+                    "news_NVDA_8",
+                    "news_NVDA_11",
+                    "news_NVDA_13"
+                ]
+            }
+        ],
+        "TSLA": [
+            {
+                "final_claim_id": "TSLA_combined_1",
+                "asset": "TSLA",
+                "text": "Tesla is actively reducing its Chinese supply chain exposure, requiring suppliers to avoid Chinese-made parts for US vehicles and potentially decreasing its overall presence in China.",
+                "upstream_claim_ids": [
+                    "news_TSLA_1",
+                    "news_TSLA_3",
+                    "news_TSLA_7"
+                ]
+            },
+            {
+                "final_claim_id": "TSLA_combined_2",
+                "asset": "TSLA",
+                "text": "Tesla faces intensifying EV market competition, particularly from Chinese manufacturers and established automakers like Ford, while also dealing with declining delivery numbers and used EV prices.",
+                "upstream_claim_ids": [
+                    "news_TSLA_2",
+                    "news_TSLA_4",
+                    "news_TSLA_8",
+                    "news_TSLA_12",
+                    "news_TSLA_14",
+                    "news_TSLA_16"
+                ]
+            },
+            {
+                "final_claim_id": "TSLA_combined_3",
+                "asset": "TSLA",
+                "text": "Tesla continues to advance its technology initiatives, including Optimus robot development for healthcare and more transparent Full Self-Driving data, while potentially integrating Apple CarPlay.",
+                "upstream_claim_ids": [
+                    "news_TSLA_6",
+                    "news_TSLA_9",
+                    "news_TSLA_11",
+                    "news_TSLA_13",
+                    "news_TSLA_15"
+                ]
+            },
+            {
+                "final_claim_id": "TSLA_combined_4",
+                "asset": "TSLA",
+                "text": "Market sentiment around Tesla remains mixed, with bulls citing AI and innovation potential while bears express concerns about macro conditions and valuation.",
+                "upstream_claim_ids": [
+                    "social_TSLA_1",
+                    "social_TSLA_2",
+                    "social_TSLA_3",
+                    "social_TSLA_4",
+                    "social_TSLA_5",
+                    "social_TSLA_6"
+                ]
+            },
+            {
+                "final_claim_id": "TSLA_combined_5",
+                "asset": "TSLA",
+                "text": "Tesla faces growing competition in autonomous driving technology, particularly from companies like Huawei.",
+                "upstream_claim_ids": [
+                    "news_TSLA_5"
+                ]
+            },
+            {
+                "final_claim_id": "TSLA_combined_6",
+                "asset": "TSLA",
+                "text": "Elon Musk maintains a modest personal real estate portfolio with only two residences.",
+                "upstream_claim_ids": [
+                    "news_TSLA_10"
+                ]
+            }
+        ],
+        "GOLD": [
+            {
+                "final_claim_id": "GOLD_combined_1",
+                "asset": "GOLD",
+                "text": "Gold prices are experiencing significant downward pressure due to hawkish Federal Reserve signals and diminishing expectations for December rate cuts. Prices have declined below $4,100 as market sentiment shifts.",
+                "upstream_claim_ids": [
+                    "news_GOLD_5",
+                    "news_GOLD_6",
+                    "news_GOLD_7"
+                ]
+            },
+            {
+                "final_claim_id": "GOLD_combined_2",
+                "asset": "GOLD",
+                "text": "Market sentiment around gold is mixed, with traders expressing concerns about potential selloffs due to weak macro data, while valuation opinions remain divided between overvalued and fair price assessments.",
+                "upstream_claim_ids": [
+                    "social_GOLD_1",
+                    "social_GOLD_2",
+                    "social_GOLD_5",
+                    "social_GOLD_6"
+                ]
+            },
+            {
+                "final_claim_id": "GOLD_combined_3",
+                "asset": "GOLD",
+                "text": "Gold is increasingly viewed as a preferred safe-haven asset, particularly as cryptocurrency markets weaken with Bitcoin hitting six-month lows.",
+                "upstream_claim_ids": [
+                    "news_GOLD_2",
+                    "social_GOLD_3",
+                    "social_GOLD_4"
+                ]
+            },
+            {
+                "final_claim_id": "GOLD_combined_4",
+                "asset": "GOLD",
+                "text": "Supply-side developments in the gold market include new discoveries at the Antonella Project and various mining sector activities that could impact market dynamics.",
+                "upstream_claim_ids": [
+                    "news_GOLD_1",
+                    "news_GOLD_9"
+                ]
+            },
+            {
+                "final_claim_id": "GOLD_combined_5",
+                "asset": "GOLD",
+                "text": "Regional gold market activity, particularly in Pakistan, shows movement in precious metals markets, with potential implications for retail inflation and foreign exchange conservation.",
+                "upstream_claim_ids": [
+                    "news_GOLD_3",
+                    "news_GOLD_4",
+                    "news_GOLD_8"
+                ]
+            }
+        ]
+    }
+}

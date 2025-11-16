@@ -34,7 +34,19 @@ export default function NodeDetailsPanel({ selectedNode, onClose, onClaimClick, 
             {newsClaims.map((claim, index) => (
               <div
                 key={claim.claim_id || index}
-                className="p-3 rounded-lg border-2 border-gray-600 bg-gray-700/50"
+                onClick={() => {
+                  setSelectedClaim(claim);
+                  if (onClaimClick) {
+                    onClaimClick(claim, 'news');
+                  }
+                }}
+                className={`
+                  p-3 rounded-lg border-2 cursor-pointer transition-all
+                  ${selectedClaim === claim
+                    ? 'border-blue-500 bg-blue-500/20'
+                    : 'border-gray-600 hover:border-gray-500 bg-gray-700/50'
+                  }
+                `}
               >
                 <div className="text-sm font-medium mb-1">
                   {claim.text || 'No text available'}
@@ -76,7 +88,19 @@ export default function NodeDetailsPanel({ selectedNode, onClose, onClaimClick, 
             {socialClaims.map((claim, index) => (
               <div
                 key={claim.claim_id || index}
-                className="p-3 rounded-lg border-2 border-gray-600 bg-gray-700/50"
+                onClick={() => {
+                  setSelectedClaim(claim);
+                  if (onClaimClick) {
+                    onClaimClick(claim, 'social');
+                  }
+                }}
+                className={`
+                  p-3 rounded-lg border-2 cursor-pointer transition-all
+                  ${selectedClaim === claim
+                    ? 'border-blue-500 bg-blue-500/20'
+                    : 'border-gray-600 hover:border-gray-500 bg-gray-700/50'
+                  }
+                `}
               >
                 <div className="text-sm font-medium mb-1">
                   {claim.text || 'No text available'}
@@ -101,7 +125,7 @@ export default function NodeDetailsPanel({ selectedNode, onClose, onClaimClick, 
         <div className="w-96 flex-shrink-0 bg-gray-800 border-l border-gray-700 flex flex-col h-full max-h-full overflow-hidden">
           <div className="p-4 border-b border-gray-700 flex-shrink-0">
             <div className="flex items-center justify-between mb-2">
-              <h2 className="text-lg font-bold">Master Claims</h2>
+              <h2 className="text-lg font-bold">Aggregator</h2>
               <button
                 onClick={onClose}
                 className="text-gray-400 hover:text-white"
@@ -112,8 +136,8 @@ export default function NodeDetailsPanel({ selectedNode, onClose, onClaimClick, 
           </div>
           <div className="flex-1 flex items-center justify-center p-4">
             <div className="text-center text-gray-400">
-              <p className="mb-2">No master claims to display</p>
-              <p className="text-sm">Select an asset from the bottom bar to view master claims</p>
+              <p className="mb-2">No aggregated claims to display</p>
+              <p className="text-sm">Select an asset from the bottom bar to view aggregated claims</p>
             </div>
           </div>
         </div>
@@ -124,7 +148,7 @@ export default function NodeDetailsPanel({ selectedNode, onClose, onClaimClick, 
       <div className="w-96 flex-shrink-0 bg-gray-800 border-l border-gray-700 flex flex-col h-full max-h-full overflow-hidden">
         <div className="p-4 border-b border-gray-700 flex-shrink-0">
           <div className="flex items-center justify-between mb-2">
-            <h2 className="text-lg font-bold">Master Claims</h2>
+            <h2 className="text-lg font-bold">Aggregator</h2>
             <button
               onClick={onClose}
               className="text-gray-400 hover:text-white"

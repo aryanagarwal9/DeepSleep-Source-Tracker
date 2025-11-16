@@ -26,7 +26,7 @@ export function transformToElements(data, selectedAsset = null, selectedMasterCl
   nodes.push({
     data: {
       id: 'master_claims_agent',
-      label: 'Master Claims by Asset',
+      label: 'Aggregator',
       type: 'agent',
       agentType: 'master'
     },

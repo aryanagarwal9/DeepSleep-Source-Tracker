@@ -117,45 +117,80 @@ You will be given:
 
 Your job:
 1. Answer the user's question clearly and concisely based on the provided claims data
-2. Identify which claim IDs are most relevant to the user's question
-3. Return your response in STRICT JSON format
+2. CITE specific claims in your answer using numbered citations like [1], [2], [3]
+3. Provide the mapping of citation numbers to claim IDs
+4. Return your response in STRICT JSON format
 
 Response format:
 {
-  "answer": "<your detailed answer to the user's question>",
+  "answer": "<your detailed answer with numbered citations like [1], [2]>",
+  "citations": {
+    "1": "claim_id_1",
+    "2": "claim_id_2"
+  },
   "relevant_claim_ids": ["<claim_id_1>", "<claim_id_2>", ...]
 }
 
 Guidelines:
 - Be factual and base your answer only on the provided claims data
-- Include 1-5 most relevant claim IDs in the relevant_claim_ids array
-- If no claims are relevant, return an empty array
-- Keep your answer concise but informative
+- ALWAYS cite claims when you reference information from them using [1], [2], etc.
+- The citations object should map each citation number to its claim ID
+- Include all cited claim IDs in the relevant_claim_ids array as well
+- Keep your answer concise but informative with proper citations
 - Do not include any text outside the JSON structure
+
+Example:
+{
+  "answer": "NVIDIA's stock is performing well due to strong AI demand [1]. However, some analysts express concerns about valuation [2].",
+  "citations": {
+    "1": "nvda_final_claim_1",
+    "2": "nvda_upstream_news_2"
+  },
+  "relevant_claim_ids": ["nvda_final_claim_1", "nvda_upstream_news_2"]
+}
 """.strip()
 
 
-def build_chat_user_prompt(user_question: str, claims_data: Dict[str, Any]) -> str:
+def build_chat_user_prompt(user_question: str, claims_data: Dict[str, Any], selected_asset: str = None) -> str:
     """
-    Format the user's question and all claims data for the LLM.
+    Format the user's question and claims data for the LLM.
+    If selected_asset is provided, only include claims for that asset.
     """
     lines = [
         f"User question: {user_question}",
         "",
+    ]
+
+    if selected_asset:
+        lines.append(f"CONTEXT: User is currently viewing {selected_asset} asset in the graph.")
+        lines.append(f"IMPORTANT: Only return claim IDs for {selected_asset} asset.")
+        lines.append("")
+
+    lines.extend([
         "=== AVAILABLE CLAIMS DATA ===",
         "",
         "## All Upstream Claims (News and Social):"
-    ]
+    ])
 
-    for claim in claims_data.get("all_upstream_claims", []):
+    # Filter upstream claims by selected asset if provided
+    upstream_claims = claims_data.get("all_upstream_claims", [])
+    if selected_asset:
+        upstream_claims = [c for c in upstream_claims if c.get('asset') == selected_asset]
+
+    for claim in upstream_claims:
         lines.append(
             f"- {claim['claim_id']} [{claim['source_agent']}] ({claim['asset']}): {claim['text']}"
         )
 
     lines.append("")
-    lines.append("## Master Claims by Asset:")
+    lines.append("## Aggregator:")
 
-    for asset, master_claims in claims_data.get("master_claims_by_asset", {}).items():
+    # Filter master claims by selected asset if provided
+    master_claims_by_asset = claims_data.get("master_claims_by_asset", {})
+    if selected_asset:
+        master_claims_by_asset = {selected_asset: master_claims_by_asset.get(selected_asset, [])}
+
+    for asset, master_claims in master_claims_by_asset.items():
         lines.append(f"\n### {asset}:")
         for claim in master_claims:
             upstream_ids = ", ".join(claim.get("upstream_claim_ids", []))
@@ -166,12 +201,13 @@ def build_chat_user_prompt(user_question: str, claims_data: Dict[str, Any]) -> s
     return "\n".join(lines)
 
 
-def query_claims(llm: HackathonChatModel, user_question: str, claims_data: Dict[str, Any]) -> Dict[str, Any]:
+def query_claims(llm: HackathonChatModel, user_question: str, claims_data: Dict[str, Any], selected_asset: str = None) -> Dict[str, Any]:
     """
     Query the LLM with a user question and claims data.
-    Returns: {"answer": str, "relevant_claim_ids": List[str]}
+    If selected_asset is provided, only include claims for that asset.
+    Returns: {"answer": str, "citations": dict, "relevant_claim_ids": List[str]}
     """
-    user_prompt = build_chat_user_prompt(user_question, claims_data)
+    user_prompt = build_chat_user_prompt(user_question, claims_data, selected_asset)
     full_prompt = CHAT_SYSTEM_PROMPT + "\n\n" + user_prompt
 
     messages = [HumanMessage(content=full_prompt)]
@@ -182,11 +218,13 @@ def query_claims(llm: HackathonChatModel, user_question: str, claims_data: Dict[
         data = extract_json_object(raw)
         return {
             "answer": data.get("answer", ""),
+            "citations": data.get("citations", {}),
             "relevant_claim_ids": data.get("relevant_claim_ids", [])
         }
     except Exception as e:
         # Fallback if JSON parsing fails
         return {
             "answer": raw,
+            "citations": {},
             "relevant_claim_ids": []
         }

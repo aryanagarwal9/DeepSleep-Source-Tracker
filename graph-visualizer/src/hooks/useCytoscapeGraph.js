@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 
 export function useCytoscapeGraph(setSelectedNode, data) {
   const cyRef = useRef(null);
@@ -8,7 +8,7 @@ export function useCytoscapeGraph(setSelectedNode, data) {
     if (!cy) return;
 
     // Clear previous highlights
-    cy.elements().removeClass('highlighted dimmed');
+    cy.elements().removeClass('highlighted dimmed citation-highlighted');
 
     const nodeData = node.data();
     const pathElements = cy.collection();
@@ -167,7 +167,7 @@ export function useCytoscapeGraph(setSelectedNode, data) {
 
   const clearHighlight = () => {
     if (cyRef.current) {
-      cyRef.current.elements().removeClass('highlighted dimmed');
+      cyRef.current.elements().removeClass('highlighted dimmed citation-highlighted');
     }
   };
 
@@ -242,47 +242,99 @@ export function useCytoscapeGraph(setSelectedNode, data) {
     }
   };
 
-  // Setup event handlers
-  useEffect(() => {
-    if (cyRef.current) {
-      const cy = cyRef.current;
+  // Callback to set up Cytoscape instance and event handlers
+  const setCyRef = useCallback((cy) => {
+    if (!cy) return;
 
-      // Node click handler
-      const handleNodeTap = (evt) => {
-        const node = evt.target;
-        setSelectedNode(node.data());
-        highlightPath(node);
-      };
+    cyRef.current = cy;
 
-      // Background click handler
-      const handleBackgroundTap = (evt) => {
-        if (evt.target === cy) {
-          clearHighlight();
-          setSelectedNode(null);
-        }
-      };
+    // Node click handler
+    const handleNodeTap = (evt) => {
+      const node = evt.target;
+      setSelectedNode(node.data());
+      highlightPath(node);
+    };
 
-      cy.on('tap', 'node', handleNodeTap);
-      cy.on('tap', handleBackgroundTap);
+    // Background click handler
+    const handleBackgroundTap = (evt) => {
+      if (evt.target === cy) {
+        clearHighlight();
+        setSelectedNode(null);
+      }
+    };
 
-      return () => {
-        cy.off('tap', 'node', handleNodeTap);
-        cy.off('tap', handleBackgroundTap);
-      };
-    }
-  }, [cyRef.current, setSelectedNode]);
+    // Remove any existing listeners first to avoid duplicates
+    cy.removeAllListeners();
+
+    // Set up event listeners
+    cy.on('tap', 'node', handleNodeTap);
+    cy.on('tap', handleBackgroundTap);
+  }, [setSelectedNode]);
 
   const highlightClaimPath = (claim, collectionType, selectedAsset) => {
     const cy = cyRef.current;
     if (!cy) return;
 
     // Clear previous highlights
-    cy.elements().removeClass('highlighted dimmed');
+    cy.elements().removeClass('highlighted dimmed citation-highlighted');
 
     const pathElements = cy.collection();
 
+    // For news or social upstream claims
+    if (collectionType === 'news' || collectionType === 'social') {
+      const claimNode = cy.getElementById(claim.claim_id);
+      const sourceAgentId = collectionType === 'news' ? 'news_agent' : 'social_agent';
+      const sourceAgentNode = cy.getElementById(sourceAgentId);
+
+      if (claimNode.length > 0) {
+        pathElements.merge(claimNode);
+
+        // Highlight the source agent
+        if (sourceAgentNode.length > 0) {
+          pathElements.merge(sourceAgentNode);
+        }
+
+        // Highlight edge from agent to claim
+        const edgeToUpstream = cy.getElementById(`edge_${claim.claim_id}_to_agent`);
+        if (edgeToUpstream.length > 0) {
+          pathElements.merge(edgeToUpstream);
+        }
+
+        // Find and highlight master claims that use this upstream claim
+        const allNodes = cy.nodes();
+        let foundMasterClaims = false;
+
+        allNodes.forEach(n => {
+          const nData = n.data();
+          if (nData.type === 'master_claim' && nData.upstream_claim_ids) {
+            if (nData.upstream_claim_ids.includes(claim.claim_id)) {
+              pathElements.merge(n);
+              foundMasterClaims = true;
+
+              const edgeToMaster = cy.getElementById(`edge_${nData.id}_to_agent`);
+              if (edgeToMaster.length > 0) {
+                pathElements.merge(edgeToMaster);
+              }
+            }
+          }
+        });
+
+        // If master claims were found, highlight the master claims agent and connection
+        if (foundMasterClaims) {
+          const masterAgentNode = cy.getElementById('master_claims_agent');
+          if (masterAgentNode.length > 0) {
+            pathElements.merge(masterAgentNode);
+          }
+
+          const agentToMasterEdge = cy.getElementById(collectionType + '_to_master');
+          if (agentToMasterEdge.length > 0) {
+            pathElements.merge(agentToMasterEdge);
+          }
+        }
+      }
+    }
     // For master claims
-    if (collectionType === 'master') {
+    else if (collectionType === 'master') {
       const masterAgentNode = cy.getElementById('master_claims_agent');
       const masterClaimNode = cy.getElementById(claim.final_claim_id);
       const edgeToMaster = cy.getElementById(`edge_${claim.final_claim_id}_to_agent`);
@@ -356,12 +408,125 @@ export function useCytoscapeGraph(setSelectedNode, data) {
     });
   };
 
+  const highlightSingleCitationClaim = (claimId) => {
+    const cy = cyRef.current;
+    if (!cy || !claimId) return;
+
+    // Clear previous highlights
+    cy.elements().removeClass('highlighted dimmed citation-highlighted');
+
+    const pathElements = cy.collection();
+    const node = cy.getElementById(claimId);
+
+    if (node.length > 0) {
+      pathElements.merge(node);
+      const nodeData = node.data();
+
+      // Highlight the claim node with special citation style
+      if (nodeData.type === 'master_claim') {
+        const masterAgentNode = cy.getElementById('master_claims_agent');
+        const edgeToMaster = cy.getElementById(`edge_${claimId}_to_agent`);
+
+        if (masterAgentNode.length > 0) pathElements.merge(masterAgentNode);
+        if (edgeToMaster.length > 0) pathElements.merge(edgeToMaster);
+
+        // Highlight upstream claims
+        const upstreamClaimIds = nodeData.upstream_claim_ids || [];
+        let hasNewsUpstream = false;
+        let hasSocialUpstream = false;
+
+        upstreamClaimIds.forEach(upstreamId => {
+          const upstreamNode = cy.getElementById(upstreamId);
+          if (upstreamNode.length > 0) {
+            pathElements.merge(upstreamNode);
+            const upstreamData = upstreamNode.data();
+            const sourceAgent = upstreamData.source_agent;
+
+            const edgeFromAgent = cy.getElementById(`edge_${upstreamId}_to_agent`);
+            if (edgeFromAgent.length > 0) pathElements.merge(edgeFromAgent);
+
+            if (sourceAgent === 'news') hasNewsUpstream = true;
+            else if (sourceAgent === 'social') hasSocialUpstream = true;
+          }
+        });
+
+        if (hasNewsUpstream) {
+          const newsAgentNode = cy.getElementById('news_agent');
+          const newsToMasterEdge = cy.getElementById('news_to_master');
+          if (newsAgentNode.length > 0) pathElements.merge(newsAgentNode);
+          if (newsToMasterEdge.length > 0) pathElements.merge(newsToMasterEdge);
+        }
+
+        if (hasSocialUpstream) {
+          const socialAgentNode = cy.getElementById('social_agent');
+          const socialToMasterEdge = cy.getElementById('social_to_master');
+          if (socialAgentNode.length > 0) pathElements.merge(socialAgentNode);
+          if (socialToMasterEdge.length > 0) pathElements.merge(socialToMasterEdge);
+        }
+      }
+      else if (nodeData.type === 'upstream_claim') {
+        const sourceAgent = nodeData.source_agent;
+        const sourceAgentId = sourceAgent === 'news' ? 'news_agent' : 'social_agent';
+        const sourceAgentNode = cy.getElementById(sourceAgentId);
+
+        if (sourceAgentNode.length > 0) pathElements.merge(sourceAgentNode);
+
+        const edgeToUpstream = cy.getElementById(`edge_${claimId}_to_agent`);
+        if (edgeToUpstream.length > 0) pathElements.merge(edgeToUpstream);
+
+        // Find master claims that reference this upstream claim
+        const allNodes = cy.nodes();
+        let foundMasterClaims = false;
+
+        allNodes.forEach(n => {
+          const nData = n.data();
+          if (nData.type === 'master_claim' && nData.upstream_claim_ids) {
+            if (nData.upstream_claim_ids.includes(claimId)) {
+              pathElements.merge(n);
+              foundMasterClaims = true;
+
+              const edgeToMaster = cy.getElementById(`edge_${nData.id}_to_agent`);
+              if (edgeToMaster.length > 0) pathElements.merge(edgeToMaster);
+            }
+          }
+        });
+
+        if (foundMasterClaims) {
+          const masterAgentNode = cy.getElementById('master_claims_agent');
+          if (masterAgentNode.length > 0) pathElements.merge(masterAgentNode);
+
+          const agentToMasterEdge = cy.getElementById(sourceAgent + '_to_master');
+          if (agentToMasterEdge.length > 0) pathElements.merge(agentToMasterEdge);
+        }
+      }
+
+      // Use citation-highlighted class for special orange/amber color
+      node.addClass('citation-highlighted');
+      pathElements.not(node).addClass('highlighted');
+      cy.elements().not(pathElements).addClass('dimmed');
+
+      // Animate pulse effect on the cited node
+      node.animate({
+        style: { 'border-width': 8 }
+      }, {
+        duration: 300,
+        complete: () => {
+          node.animate({
+            style: { 'border-width': 6 }
+          }, {
+            duration: 300
+          });
+        }
+      });
+    }
+  };
+
   const highlightClaimsByIds = (claimIds) => {
     const cy = cyRef.current;
     if (!cy || !claimIds || claimIds.length === 0) return;
 
     // Clear previous highlights
-    cy.elements().removeClass('highlighted dimmed');
+    cy.elements().removeClass('highlighted dimmed citation-highlighted');
 
     const pathElements = cy.collection();
 
@@ -476,9 +641,11 @@ export function useCytoscapeGraph(setSelectedNode, data) {
 
   return {
     cyRef,
+    setCyRef,
     highlightPath,
     highlightClaimPath,
     highlightClaimsByIds,
+    highlightSingleCitationClaim,
     clearHighlight,
     handleSearch,
     applyFilters,

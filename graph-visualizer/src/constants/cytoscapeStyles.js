@@ -147,6 +147,20 @@ export const getCytoscapeStylesheet = () => [
       'z-index': 999
     }
   },
+  // Citation highlighted elements (special color for citation clicks)
+  {
+    selector: '.citation-highlighted',
+    style: {
+      'background-color': '#fb923c',
+      'line-color': '#fb923c',
+      'target-arrow-color': '#fb923c',
+      'border-color': '#ea580c',
+      'border-width': 6,
+      'opacity': 1,
+      'z-index': 1000,
+      'box-shadow': '0 0 20px #fb923c'
+    }
+  },
   // Dimmed elements
   {
     selector: '.dimmed',

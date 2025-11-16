@@ -35,12 +35,14 @@ export default function GraphVisualizer() {
 
   const {
     cyRef,
+    setCyRef,
     handleSearch,
     applyFilters,
     exportGraph,
     resetView,
     highlightClaimPath,
-    highlightClaimsByIds
+    highlightClaimsByIds,
+    highlightSingleCitationClaim
   } = useCytoscapeGraph(setSelectedNode, SAMPLE_DATA);
 
   const handleClaimClick = (claim, collectionType) => {
@@ -90,7 +92,11 @@ export default function GraphVisualizer() {
 
       <div className="flex-1 flex flex-col overflow-hidden">
         <div className="flex-1 flex overflow-hidden">
-          <ChatPanel onHighlightClaims={highlightClaimsByIds} />
+          <ChatPanel
+            onHighlightClaims={highlightClaimsByIds}
+            onHighlightCitation={highlightSingleCitationClaim}
+            selectedAsset={selectedAsset}
+          />
           <div className="flex-1 relative">
             <CytoscapeComponent
               key={`${selectedAsset}-${selectedMasterClaim?.final_claim_id || 'none'}`}
@@ -98,7 +104,7 @@ export default function GraphVisualizer() {
               style={{ width: '100%', height: '100%' }}
               stylesheet={stylesheet}
               layout={LAYOUT_OPTIONS.custom}
-              cy={(cy) => { cyRef.current = cy; }}
+              cy={setCyRef}
               wheelSensitivity={0.2}
             />
 

@@ -56,10 +56,12 @@ llm = HackathonChatModel()
 
 class ChatRequest(BaseModel):
     question: str
+    selected_asset: str = None
 
 
 class ChatResponse(BaseModel):
     answer: str
+    citations: Dict[str, str]
     highlight_claim_ids: List[str]
 
 
@@ -97,10 +99,11 @@ async def chat(request: ChatRequest):
 
     try:
         # Query the LLM
-        result = query_claims(llm, request.question, CLAIMS_DATA)
+        result = query_claims(llm, request.question, CLAIMS_DATA, request.selected_asset)
 
         return ChatResponse(
             answer=result.get("answer", "I couldn't generate an answer."),
+            citations=result.get("citations", {}),
             highlight_claim_ids=result.get("relevant_claim_ids", [])
         )
     except Exception as e:

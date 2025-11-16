@@ -6,7 +6,6 @@ import coseBilkent from 'cytoscape-cose-bilkent';
 import Header from './Header';
 import AssetSelector from './AssetSelector';
 import FiltersPanel from './FiltersPanel';
-import GraphLegend from './GraphLegend';
 import NodeDetailsPanel from './NodeDetailsPanel';
 import ChatPanel from './ChatPanel';
 
@@ -107,8 +106,6 @@ export default function GraphVisualizer() {
               cy={setCyRef}
               wheelSensitivity={0.2}
             />
-
-            <GraphLegend />
           </div>
 
           <NodeDetailsPanel

@@ -26,12 +26,12 @@ export const getCytoscapeStylesheet = () => [
     style: {
       'shape': 'round-rectangle',
       'background-color': '#4f46e5',
-      'width': 140,
-      'height': 80,
-      'font-size': '14px',
+      'width': 420,
+      'height': 240,
+      'font-size': '42px',
       'font-weight': 'bold',
-      'text-max-width': '130px',
-      'border-width': 3,
+      'text-max-width': '390px',
+      'border-width': 9,
       'border-color': '#818cf8'
     }
   },

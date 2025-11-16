@@ -12,7 +12,7 @@ from llm_agent import HackathonChatModel, query_claims
 # FASTAPI APP SETUP
 # =========================
 
-app = FastAPI(title="Claims Network Visualizer API")
+app = FastAPI(title="SourceTrace")
 
 # Enable CORS for local development - must be very permissive for dev
 app.add_middleware(
@@ -74,7 +74,7 @@ async def root():
     """Health check endpoint."""
     return {
         "status": "ok",
-        "message": "Claims Network Visualizer API is running",
+        "message": "Source Trace Visualizer API is running",
         "upstream_claims_count": len(CLAIMS_DATA.get("all_upstream_claims", [])),
         "assets": list(CLAIMS_DATA.get("master_claims_by_asset", {}).keys())
     }

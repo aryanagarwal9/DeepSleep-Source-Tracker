@@ -12,7 +12,7 @@ export default function Header({
 }) {
   return (
     <div className="bg-gray-800 border-b border-gray-700 p-4 flex items-center justify-between">
-      <h1 className="text-xl font-bold">Claims Network Visualizer</h1>
+      <h1 className="text-xl font-bold">Source Trace Visualiser</h1>
 
       <div className="flex items-center gap-2">
         {/* Search */}
